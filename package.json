@@ -1,0 +1,22 @@
+{
+  "name": "greeter",
+  "license": "Apache-2.0",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "hardhat compile",
+    "l1tol2": "hardhat run scripts/bridgeToL2.test.js"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@openzeppelin/contracts": "^5.1.0",
+    "arb-shared-dependencies": "^1.0.0",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.22.16"
+  },
+  "dependencies": {
+    "@arbitrum/nitro-contracts": "v2.1.0",
+    "@arbitrum/sdk": "^v4.0.2",
+    "dotenv": "^16.4.5",
+    "typescript": "^5.7.2"
+  }
+}
