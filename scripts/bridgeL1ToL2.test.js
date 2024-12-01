@@ -8,7 +8,7 @@ const {
     EthBridger,
     getArbitrumNetwork,
     registerCustomArbitrumNetwork,
-    ParentToChildMessageGasEstimator, ChildToParentMessage, ParentTransactionReceipt, ParentToChildMessageStatus
+    ParentToChildMessageGasEstimator, ParentTransactionReceipt, ParentToChildMessageStatus
 } = require('@arbitrum/sdk')
 const { getBaseFee } = require('@arbitrum/sdk/dist/lib/utils/lib')
 const {mapOrbitConfigToOrbitChain} = require("../utils/dist/mapOrbitConfigToOrbitChain")
@@ -28,7 +28,7 @@ const l1Wallet = new Wallet(walletPrivateKey, l1Provider)
 const l2Wallet = new Wallet(walletPrivateKey, l2Provider)
 
 const main = async () => {
-    //await arbLog('Cross-chain NFT Bridge L1 to L2')
+    await arbLog('Cross-chain NFT Bridge L1 to L2')
 
     const orbitChain = await mapOrbitConfigToOrbitChain(outputInfo)
 
@@ -52,15 +52,15 @@ const main = async () => {
      * We deploy L1 Greeter to L1, L2 greeter to L2, each with a different "greeting" message.
      * After deploying, save set each contract's counterparty's address to its state so that they can later talk to each other.
      */
-    const l1NFT = await (
-        await hre.ethers.getContractAt('CommunitasNFTL1', "0x91C158251386d274E2d22d4869eaC3634753AC45")
+    const L1NFT = await (
+        await hre.ethers.getContractFactory('CommunitasNFTL1')
     ).connect(l1Wallet) //
-    /*console.log('Deploying L1 NFT 👋')
+    console.log('Deploying L1 NFT 👋')
     const l1NFT = await L1NFT.deploy(
         ethers.constants.AddressZero, // temp l2 addr
         inboxAddress
     )
-    await l1NFT.deployed()*/
+    await l1NFT.deployed()
     console.log(`deployed to ${l1NFT.address}`)
     const L2NFT = await (
         await hre.ethers.getContractFactory('CommunitasNFTL2')
@@ -76,7 +76,6 @@ const main = async () => {
 
     const updateL2Tx = await l2NFT.updatel1Target(l1NFT.address)
     await updateL2Tx.wait()
-    console.log(await l2NFT.l1Target())
 
     const updateL1Tx = await l1NFT.updatel2Target(l2NFT.address)
     await updateL1Tx.wait()

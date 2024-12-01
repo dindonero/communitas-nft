@@ -1,0 +1,17 @@
+{
+  "name": "Communitas Energy Citizen Award",
+  "description": "This NFT is awarded to users who actively engaged with the Communitas platform, contributing to the advancement of energy citizenship and sustainable energy practices.",
+  "image": "https://wattswap.vercel.app/_next/image?url=%2Fcommunitas.png&w=256&q=75",
+  "attributes": [
+    {
+      "trait_type": "Engagement Level",
+      "value": "High"
+    },
+    {
+      "trait_type": "Role",
+      "value": "Energy Citizen"
+    }
+  ],
+  "external_url": "https://communitas-project.eu/",
+  "background_color": "FFFFFF"
+}

@@ -43,6 +43,7 @@ contract CommunitasNFTL2 is CommunitasNFT {
             "NFT only mintable by L1"
         );
         _mint(receiver, tokenId);
+        tokenCounter = tokenId + 1;
     }
 
 }

@@ -4,9 +4,11 @@
   "version": "1.0.0",
   "scripts": {
     "build": "hardhat compile",
-    "l1tol2": "hardhat run scripts/bridgeToL2.test.js"
+    "l1tol2": "hardhat run scripts/bridgeL1ToL2.test.js",
+    "l2tol1": "hardhat run scripts/bridgeL2ToL1.test.js"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-verify": "^2.0.12",
     "@nomiclabs/hardhat-ethers": "^2.2.3",
     "@openzeppelin/contracts": "^5.1.0",
     "arb-shared-dependencies": "^1.0.0",

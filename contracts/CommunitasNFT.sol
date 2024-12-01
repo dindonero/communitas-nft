@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import { ERC721 } from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import {ERC721Enumerable, ERC721} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 
-abstract contract CommunitasNFT is ERC721, Ownable {
+abstract contract CommunitasNFT is ERC721Enumerable, Ownable {
 
-    string constant BASE_URI = "https://wattswap.vercel.app/_next/image?url=%2Fcommunitas.png&w=256&q=75";
+    string constant BASE_URI = "https://gateway.pinata.cloud/ipfs/Qmf3mqki1fMZ5S5fnspHF9LMiezBEdCQbuknYhcDALni3a";
 
     uint256 public tokenCounter;
 
