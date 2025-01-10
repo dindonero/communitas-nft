@@ -20,6 +20,10 @@ abstract contract CommunitasNFT is ERC721Enumerable, Ownable {
         return tokenId;
     }
 
+    function burn(uint256 tokenId) public { // todo: remove this
+        _burn(tokenId);
+    }
+
     function mintFromBridge(address receiver, uint256 tokenId) public virtual;
 
     /**

@@ -10,7 +10,7 @@ contract CommunitasNFTL2 is CommunitasNFT {
     ArbSys constant arbsys = ArbSys(address(100));
     address public l1Target;
 
-    event L2ToL1TxCreated(uint256 indexed withdrawalId);
+    event L2ToL1TxCreated(uint256 indexed withdrawalId, address indexed from, uint256 indexed tokenId, string tokenURI);
 
     constructor(
         address _l1Target
@@ -25,13 +25,14 @@ contract CommunitasNFTL2 is CommunitasNFT {
     function bridgeToL1(uint256 tokenId) public returns (uint256) {
 
         require(_ownerOf(tokenId) == msg.sender, "NFT not owned by sender");
+        string memory tokenURI = tokenURI(tokenId);
         _burn(tokenId);
 
         bytes memory data = abi.encodeWithSelector(CommunitasNFT.mintFromBridge.selector, msg.sender, tokenId);
 
         uint256 withdrawalId = arbsys.sendTxToL1(l1Target, data);
 
-        emit L2ToL1TxCreated(withdrawalId);
+        emit L2ToL1TxCreated(withdrawalId, msg.sender,tokenId, tokenURI);
         return withdrawalId;
     }
 
