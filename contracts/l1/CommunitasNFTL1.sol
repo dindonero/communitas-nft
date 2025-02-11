@@ -58,7 +58,6 @@ contract CommunitasNFTL1 is CommunitasNFT {
         address l2Sender = outbox.l2ToL1Sender();
         require(l2Sender == l2Target, "Greeting only updateable by L2");
 
-        tokenCounter = tokenId + 1;
         _mint(receiver, tokenId);
     }
 }
