@@ -67,8 +67,13 @@ const main = async () => {
 
     console.log('Deploying L2 NFT 👋👋')
 
+    const estimatedGasLimit = await l2Wallet.estimateGas(L2NFT.getDeployTransaction(ethers.constants.AddressZero))
     const l2NFT = await L2NFT.deploy(
-        ethers.constants.AddressZero // temp l1 addr
+        ethers.constants.AddressZero, // temp l1 addr
+        {
+            gasLimit: estimatedGasLimit,
+            gasPrice: await l2Wallet.getGasPrice()
+        }
     )
     await l2NFT.deployed()
     console.log(`deployed to ${l2NFT.address}`)

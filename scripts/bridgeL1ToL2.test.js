@@ -1,16 +1,16 @@
-const { providers, Wallet } = require('ethers')
-const { BigNumber } = require('@ethersproject/bignumber')
+const {providers, Wallet} = require('ethers')
+const {BigNumber} = require('@ethersproject/bignumber')
 const hre = require('hardhat')
 
 const ethers = require('ethers')
-const { arbLog, requireEnvVariables } = require('arb-shared-dependencies')
+const {arbLog, requireEnvVariables} = require('arb-shared-dependencies')
 const {
     EthBridger,
     getArbitrumNetwork,
     registerCustomArbitrumNetwork,
     ParentToChildMessageGasEstimator, ParentTransactionReceipt, ParentToChildMessageStatus
 } = require('@arbitrum/sdk')
-const { getBaseFee } = require('@arbitrum/sdk/dist/lib/utils/lib')
+const {getBaseFee} = require('@arbitrum/sdk/dist/lib/utils/lib')
 const {mapOrbitConfigToOrbitChain} = require("../utils/dist/mapOrbitConfigToOrbitChain")
 const outputInfo = require('../utils/outputInfo.json');
 
@@ -62,14 +62,20 @@ const main = async () => {
     )
     await l1NFT.deployed()
     console.log(`deployed to ${l1NFT.address}`)
+
     const L2NFT = await (
         await hre.ethers.getContractFactory('CommunitasNFTL2')
     ).connect(l2Wallet)
 
     console.log('Deploying L2 NFT 👋👋')
 
+    const estimatedGasLimit = await l2Wallet.estimateGas(L2NFT.getDeployTransaction(ethers.constants.AddressZero))
     const l2NFT = await L2NFT.deploy(
-        ethers.constants.AddressZero // temp l1 addr
+        ethers.constants.AddressZero, // temp l1 addr
+        {
+            gasLimit: estimatedGasLimit,
+            gasPrice: await l2Wallet.getGasPrice()
+        }
     )
     await l2NFT.deployed()
     console.log(`deployed to ${l2NFT.address}`)
